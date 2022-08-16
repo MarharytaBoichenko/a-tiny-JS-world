@@ -1,31 +1,68 @@
 /* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
    Complete the below for code reviewers' convenience:
 
-   Code repository: _put repo URL here_
+   Code repository: https://github.com/MarharytaBoichenko/a-tiny-JS-world
    Web app: _put project's github pages URL here_
    */
 
-// ======== OBJECTS DEFINITIONS ========
-// Define your objects here
+const man = {
+  name: "John",
+  species: "man",
+  gender: "male",
+  hands: 2,
+  legs: 2,
+  saying: "hello",
+  friends: ["Bob", "Ann", "Nick"],
+};
+const woman = {
+  name: "Ann",
+  species: "woman",
+  gender: "female",
+  hands: 2,
+  legs: 2,
+  saying: "hi",
+};
+const cat = {
+  name: "Tom",
+  species: "cat",
+  gender: "male",
+  hands: 0,
+  legs: 4,
+  saying: "mew",
+  friends: ["Ann", "Jack"],
+};
+const dog = {
+  name: "Jack",
+  species: "dog",
+  gender: "male",
+  hands: 0,
+  legs: 4,
+  saying: "woof!",
+};
 
+const catWoman = Object.create(cat);
+catWoman.name = "Jane";
+catWoman.species = "catwoman";
+catWoman.gender = "female";
+catWoman.hands = 2;
+catWoman.legs = 2;
+catWoman.saying = cat.saying;
 
-// ======== OUTPUT ========
-/* Use print(message) for output.
-   Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
+const inhabitants = [man, woman, cat, dog, catWoman];
+const allProperties = [
+  "name",
+  "species",
+  "gender",
+  "hands",
+  "legs",
+  "saying",
+  "friends",
+];
 
-   Message can contain HTML markup. You may also tweak index.html and/or styles.css.
-   However, please, REFRAIN from improving visuals at least until your code is reviewed
-   so code reviewers might focus on a single file that is index.js.
-   */
-
-/* Print examples:
-   print('ABC');
-   print('<strong>ABC</strong>');
-   print('<strong>ABC</strong>', 'div');
-
-   print('human; John; male; 2; 2; Hello world!; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
-   */
-
-
+inhabitants.forEach((item) => {
+  console.log(item);
+  const allInfoInItem = allProperties.map((prop) =>
+    item[prop] ? item[prop] : `no ${prop}`
+  );
+  print(allInfoInItem.join(", "));
+});
