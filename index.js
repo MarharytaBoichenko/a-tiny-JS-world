@@ -1,68 +1,78 @@
-/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
-   Complete the below for code reviewers' convenience:
+class Inhabitant {
+  constructor(name, species, friends, saying) {
+    this.name = name;
+    this.species = species;
+    this.friends = friends;
+    this.saying = saying;
+    this.properties = ["name", "species", "friends", "saying"];
+  }
+  toPrint() {
+    return this.properties
+      .map((prop) => {
+        const neededProp = this[prop] === undefined ? `no ${prop}` : this[prop];
+        return `my ${prop}: ` + neededProp;
+      })
+      .join(", ");
+  }
+}
 
-   Code repository: https://github.com/MarharytaBoichenko/a-tiny-JS-world
-   Web app: _put project's github pages URL here_
-   */
+class Person extends Inhabitant {
+  constructor(name, gender, friends, saying) {
+    super(name, "human", friends, saying);
+    this.gender = gender;
+    this.hands = 2;
+    this.legs = 2;
+    this.properties = [...this.properties, "gender", "hands", "legs"];
+  }
+}
 
-const man = {
-  name: "John",
-  species: "man",
-  gender: "male",
-  hands: 2,
-  legs: 2,
-  saying: "hello",
-  friends: ["Bob", "Ann", "Nick"],
-};
-const woman = {
-  name: "Ann",
-  species: "woman",
-  gender: "female",
-  hands: 2,
-  legs: 2,
-  saying: "hi",
-};
-const cat = {
-  name: "Tom",
-  species: "cat",
-  gender: "male",
-  hands: 0,
-  legs: 4,
-  saying: "mew",
-  friends: ["Ann", "Jack"],
-};
-const dog = {
-  name: "Jack",
-  species: "dog",
-  gender: "male",
-  hands: 0,
-  legs: 4,
-  saying: "woof!",
-};
+class Man extends Person {
+  constructor(name, friends, saying) {
+    super(name, "man", friends, saying);
+  }
+}
 
-const catWoman = Object.create(cat);
-catWoman.name = "Jane";
-catWoman.species = "catwoman";
-catWoman.gender = "female";
-catWoman.hands = 2;
-catWoman.legs = 2;
-catWoman.saying = cat.saying;
+class Woman extends Person {
+  constructor(name, friends, saying) {
+    super(name, "woman", friends, saying);
+  }
+}
+class Animal extends Inhabitant {
+  constructor(name, species, legs, gender, friends, saying) {
+    super(name, species, friends, saying);
+    this.legs = legs;
+    this.gender = gender;
+    this.properties = [...this.properties, "gender", "legs"];
+  }
+}
+class Cat extends Animal {
+  constructor(name, species, legs, gender, friends) {
+    super(name, species, legs, gender, friends, "meow");
+  }
+}
 
-const inhabitants = [man, woman, cat, dog, catWoman];
-const allProperties = [
-  "name",
-  "species",
-  "gender",
-  "hands",
-  "legs",
-  "saying",
-  "friends",
+class Dog extends Animal {
+  constructor(name, legs, gender, friends) {
+    super(name, "dog", legs, gender, friends, "woof");
+  }
+}
+
+class Catwoman extends Cat {
+  constructor(name, legs, gender, hands, friends) {
+    super(name, "catwoman", legs, gender, friends);
+    this.hands = hands;
+    this.properties = [...this.properties, "hands"];
+  }
+}
+
+const inhabitants = [
+  new Man("Bob", ["cat", "John"]),
+  new Woman("Kate"),
+  new Cat("Tom", "cat", 4, "male"),
+  new Dog("Jack", 4, "male"),
+  new Catwoman("Jane", 2, "female", 2, ["Ann"]),
 ];
 
 inhabitants.forEach((item) => {
-  console.log(item);
-  const allInfoInItem = allProperties.map((prop) =>
-    item[prop] ? item[prop] : `no ${prop}`
-  );
-  print(allInfoInItem.join(", "));
+  print(item.toPrint());
 });
