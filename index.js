@@ -9,7 +9,9 @@ class Inhabitant {
   }
   toPrint() {
     return this.properties
-      .filter((prop) => this[prop] !== undefined)
+      .filter((prop) => {
+        return Boolean(this[prop]) != false;
+      })
       .map((prop) => `my ${prop}: ` + this[prop])
       .join(", ");
   }
@@ -63,11 +65,11 @@ class Catwoman extends Cat {
 }
 
 const inhabitants = [
-  new Man("Bob", ["cat", "John"], "hi"),
-  new Woman("Kate", "hello"),
+  new Man("Bob", ["cat"], "hi"),
+  new Woman("Kate", ["cat", "Bob"]),
   new Cat("Tom", "cat", 4, "male"),
-  new Dog("Jack", "male"),
-  new Catwoman("Jane", 2, "female", 2, ["Ann"]),
+  new Dog("Jack", "male", ["cat", "Jill"]),
+  new Catwoman("Jane", 2, "female", ["Ann"]),
 ];
 
 inhabitants.forEach((item) => {
