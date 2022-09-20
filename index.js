@@ -1,28 +1,26 @@
 class Inhabitant {
-  constructor(name, species, friends, saying) {
+  constructor(name, species, gender, friends, saying) {
     this.name = name;
     this.species = species;
+    this.gender = gender;
     this.friends = friends;
     this.saying = saying;
-    this.properties = ["name", "species", "friends", "saying"];
+    this.properties = ["name", "species", "gender", "friends", "saying"];
   }
   toPrint() {
     return this.properties
-      .map((prop) => {
-        const neededProp = this[prop] === undefined ? `no ${prop}` : this[prop];
-        return `my ${prop}: ` + neededProp;
-      })
+      .filter((prop) => this[prop] !== undefined)
+      .map((prop) => `my ${prop}: ` + this[prop])
       .join(", ");
   }
 }
 
 class Person extends Inhabitant {
   constructor(name, gender, friends, saying) {
-    super(name, "human", friends, saying);
-    this.gender = gender;
+    super(name, "human", gender, friends, saying);
     this.hands = 2;
     this.legs = 2;
-    this.properties = [...this.properties, "gender", "hands", "legs"];
+    this.properties = [...this.properties, "hands", "legs"];
   }
 }
 
@@ -39,10 +37,9 @@ class Woman extends Person {
 }
 class Animal extends Inhabitant {
   constructor(name, species, legs, gender, friends, saying) {
-    super(name, species, friends, saying);
+    super(name, species, gender, friends, saying);
     this.legs = legs;
-    this.gender = gender;
-    this.properties = [...this.properties, "gender", "legs"];
+    this.properties = [...this.properties, "legs"];
   }
 }
 class Cat extends Animal {
@@ -52,8 +49,8 @@ class Cat extends Animal {
 }
 
 class Dog extends Animal {
-  constructor(name, legs, gender, friends) {
-    super(name, "dog", legs, gender, friends, "woof");
+  constructor(name, gender, friends) {
+    super(name, "dog", 4, gender, friends, "woof");
   }
 }
 
@@ -66,10 +63,10 @@ class Catwoman extends Cat {
 }
 
 const inhabitants = [
-  new Man("Bob", ["cat", "John"]),
-  new Woman("Kate"),
+  new Man("Bob", ["cat", "John"], "hi"),
+  new Woman("Kate", "hello"),
   new Cat("Tom", "cat", 4, "male"),
-  new Dog("Jack", 4, "male"),
+  new Dog("Jack", "male"),
   new Catwoman("Jane", 2, "female", 2, ["Ann"]),
 ];
 
