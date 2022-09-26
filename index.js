@@ -25,7 +25,6 @@ class Person extends Inhabitant {
   }
 
   toPrint() {
-    console.log(super.toPrint());
     return super.toPrint() + `, my hands: ${this.hands}, my legs: ${this.legs}`;
   }
 }
@@ -86,7 +85,6 @@ class Catwoman extends Cat {
   }
 
   toPrint() {
-    console.log(super.toPrint());
     return super.toPrint() + `, my hands: ${this.hands}`;
   }
 }
